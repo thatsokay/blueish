@@ -7,7 +7,7 @@ const HueSquare = ({ hue }) => {
   var style = {}
   if (hue === null) {
     style = {
-      background: 'linear-gradient(to right, #40f, #80f)'
+      background: 'linear-gradient(to right, #2a00ff, #7f00ff)'
     }
   } else {
     style = {
