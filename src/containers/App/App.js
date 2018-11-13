@@ -49,27 +49,32 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <HueSquare hue={this.state.hue} />
-          <h1>Blueish</h1>
           {(this.state.pool.length &&
-            <div className="buttons has-addons">
-              <button
-                className="button is-large"
-              >
-                Blue
-              </button>
-              <button
-                className="button is-large"
-              >
-                Purple
-              </button>
+            <div>
+              <h1>Is the box blue or purple?</h1>
+              <div className="buttons has-addons is-centered">
+                <button
+                  className="button is-light is-outlined is-large choice"
+                >
+                  Blue
+                </button>
+                <button
+                  className="button is-light is-outlined is-large choice"
+                >
+                  Purple
+                </button>
+              </div>
             </div>
           ) ||
-            <button
-              className="button is-light is-outlined is-large"
-              onClick={this.handleStartClick}
-            >
-              Start
-            </button>
+            <div>
+              <h1>Blueish</h1>
+              <button
+                className="button is-light is-outlined is-large"
+                onClick={this.handleStartClick}
+              >
+                Start
+              </button>
+            </div>
           }
         </header>
       </div>
