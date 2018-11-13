@@ -4,8 +4,15 @@ import PropTypes from 'prop-types'
 import './HueSquare.css'
 
 const HueSquare = ({ hue }) => {
-  var style = {
-    backgroundColor: `hsl(${hue}, 100%, 50%)`,
+  var style = {}
+  if (hue === null) {
+    style = {
+      background: 'linear-gradient(to right, #40f, #80f)'
+    }
+  } else {
+    style = {
+      backgroundColor: `hsl(${hue}, 100%, 50%)`,
+    }
   }
   return (
     <div className="hue-square" style={style}>
@@ -14,7 +21,11 @@ const HueSquare = ({ hue }) => {
 }
 
 HueSquare.propTypes = {
-  hue: PropTypes.number.isRequired,
+  hue: PropTypes.number,
+}
+
+HueSquare.defaultProps = {
+  hue: null,
 }
 
 export default HueSquare
