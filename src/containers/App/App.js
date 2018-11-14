@@ -19,6 +19,7 @@ class App extends Component {
 
     this.handleStart = this.handleStart.bind(this)
     this.handleChoiceCreator = this.handleChoiceCreator.bind(this)
+    this.handleStartAgain = this.handleStartAgain.bind(this)
     this.nextHue = this.nextHue.bind(this)
   }
 
@@ -32,7 +33,6 @@ class App extends Component {
     this.setState({
       hues,
       pool: hues,
-      choices: {},
     })
     setTimeout(() => this.nextHue(), 0)
   }
@@ -45,6 +45,11 @@ class App extends Component {
       })
     }))
     setTimeout(() => this.nextHue(), 0)
+  }
+
+  handleStartAgain(event) {
+    event.preventDefault()
+    this.setState({choices: {}})
   }
 
   nextHue() {
@@ -60,39 +65,77 @@ class App extends Component {
     }
   }
 
+  renderLanding() {
+    return (
+      <div className="container">
+        <HueSquare hue={this.state.displayHue} />
+        <h1>Blueish</h1>
+        <button
+          className="button is-light is-outlined is-large"
+          onClick={this.handleStart}
+        >
+          Start
+        </button>
+      </div>
+    )
+  }
+
+  renderQuestion() {
+    return (
+      <div className="container">
+        <HueSquare hue={this.state.displayHue} />
+        <h1>Is the box blue or purple?</h1>
+        <div className="buttons has-addons">
+          <button
+            className="button is-light is-outlined is-large choice"
+            onClick={this.handleChoiceCreator('Blue')}
+          >
+            Blue
+          </button>
+          <button
+            className="button is-light is-outlined is-large choice"
+            onClick={this.handleChoiceCreator('Purple')}
+          >
+            Purple
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  renderResults() {
+    return (
+      <div className="container">
+        <h1>Your answers</h1>
+        <div className="columns">
+          {this.state.hues.map(hue => (
+            <div className="column" key={hue}>
+              <HueSquare hue={hue} size={20} />
+              <p>{this.state.choices[hue]}</p>
+            </div>
+          ))}
+        </div>
+        <button
+          className="button is-light is-outlined is-large"
+          onClick={this.handleStartAgain}
+        >
+          Start Again
+        </button>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <HueSquare hue={this.state.displayHue} />
-          {(this.state.displayHue === null &&
-            <div>
-              <h1>Blueish</h1>
-              <button
-                className="button is-light is-outlined is-large"
-                onClick={this.handleStart}
-              >
-                Start
-              </button>
-            </div>
-          ) ||
-            <div>
-              <h1>Is the box blue or purple?</h1>
-              <div className="buttons has-addons is-centered">
-                <button
-                  className="button is-light is-outlined is-large choice"
-                  onClick={this.handleChoiceCreator('Blue')}
-                >
-                  Blue
-                </button>
-                <button
-                  className="button is-light is-outlined is-large choice"
-                  onClick={this.handleChoiceCreator('Purple')}
-                >
-                  Purple
-                </button>
-              </div>
-            </div>
+        <header className="App-header container">
+          {(this.state.displayHue === null && (
+            (Object.keys(this.state.choices).length &&
+              this.renderResults()
+            ) ||
+            this.renderLanding()
+          )) ||
+            this.renderQuestion()
           }
         </header>
       </div>

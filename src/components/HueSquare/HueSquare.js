@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 const HueSquare = ({ hue, size }) => {
   var style = {
-    height: `${size}vmin`,
-    width: `${size}vmin`,
-    border: `${size / 20}vmin solid whitesmoke`,
-    borderRadius: `${size / 10}vmin`,
+    height: `${size}vh`,
+    width: `${size}vh`,
+    border: `${size / 20}vh solid whitesmoke`,
+    borderRadius: `${size / 10}vh`,
     background: ((hue === null &&
         'linear-gradient(to right, #2a00ff, #7f00ff)'
       ) ||
