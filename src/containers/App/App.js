@@ -14,13 +14,15 @@ class App extends Component {
       numHues: 5,       // Number of hues to show including both bounds
       hues: [],
       pool: [],         // Hues that haven't been displayed yet
+      choices: {},
     }
 
-    this.handleStartClick = this.handleStartClick.bind(this)
+    this.handleStart = this.handleStart.bind(this)
+    this.handleChoiceCreator = this.handleChoiceCreator.bind(this)
     this.nextHue = this.nextHue.bind(this)
   }
 
-  handleStartClick(event) {
+  handleStart(event) {
     event.preventDefault()
     var step = (this.state.upperHue - this.state.lowerHue) / (this.state.numHues - 1)
     var hues = []
@@ -31,6 +33,16 @@ class App extends Component {
       hues,
       pool: hues,
     })
+    setTimeout(() => this.nextHue(), 0)
+  }
+
+  handleChoiceCreator = choice => event => {
+    event.preventDefault()
+    this.setState(state => ({
+      choices: Object.assign({}, state.choices, {
+        [state.displayHue]: choice,
+      })
+    }))
     setTimeout(() => this.nextHue(), 0)
   }
 
@@ -52,31 +64,33 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <HueSquare hue={this.state.displayHue} />
-          {(this.state.pool.length &&
+          {(this.state.displayHue === null &&
+            <div>
+              <h1>Blueish</h1>
+              <button
+                className="button is-light is-outlined is-large"
+                onClick={this.handleStart}
+              >
+                Start
+              </button>
+            </div>
+          ) ||
             <div>
               <h1>Is the box blue or purple?</h1>
               <div className="buttons has-addons is-centered">
                 <button
                   className="button is-light is-outlined is-large choice"
+                  onClick={this.handleChoiceCreator('Blue')}
                 >
                   Blue
                 </button>
                 <button
                   className="button is-light is-outlined is-large choice"
+                  onClick={this.handleChoiceCreator('Purple')}
                 >
                   Purple
                 </button>
               </div>
-            </div>
-          ) ||
-            <div>
-              <h1>Blueish</h1>
-              <button
-                className="button is-light is-outlined is-large"
-                onClick={this.handleStartClick}
-              >
-                Start
-              </button>
             </div>
           }
         </header>
