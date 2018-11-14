@@ -1,18 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './HueSquare.css'
-
-const HueSquare = ({ hue }) => {
-  var style = {}
-  if (hue === null) {
-    style = {
-      background: 'linear-gradient(to right, #2a00ff, #7f00ff)'
-    }
-  } else {
-    style = {
-      backgroundColor: `hsl(${hue}, 100%, 50%)`,
-    }
+const HueSquare = ({ hue, size }) => {
+  var style = {
+    height: `${size}vmin`,
+    width: `${size}vmin`,
+    border: `${size / 20}vmin solid whitesmoke`,
+    borderRadius: `${size / 10}vmin`,
+    background: ((hue === null &&
+        'linear-gradient(to right, #2a00ff, #7f00ff)'
+      ) ||
+        `hsl(${hue}, 100%, 50%)`
+      ),
   }
   return (
     <div className="hue-square" style={style}>
@@ -22,10 +21,12 @@ const HueSquare = ({ hue }) => {
 
 HueSquare.propTypes = {
   hue: PropTypes.number,
+  size: PropTypes.number,
 }
 
 HueSquare.defaultProps = {
   hue: null,
+  size: 40,
 }
 
 export default HueSquare
