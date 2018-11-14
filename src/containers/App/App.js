@@ -8,10 +8,12 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      hue: null,
-      bounds: [250, 270], // Lower and upper hue bounds
-      numHues: 5,         // Number of hues to show including both bounds
-      pool: [],           // Remaining hues to show
+      displayHue: null,
+      lowerHue: 250,
+      upperHue: 270,
+      numHues: 5,       // Number of hues to show including both bounds
+      hues: [],
+      pool: [],         // Hues that haven't been displayed yet
     }
 
     this.handleStartClick = this.handleStartClick.bind(this)
@@ -20,27 +22,28 @@ class App extends Component {
 
   handleStartClick(event) {
     event.preventDefault()
-    var [lower, upper] = this.state.bounds
-    var step = (upper - lower) / (this.state.numHues - 1)
-    var pool = []
-    for (let i = lower; i <= upper; i += step) {
-      pool.push(i)
+    var step = (this.state.upperHue - this.state.lowerHue) / (this.state.numHues - 1)
+    var hues = []
+    for (let i = this.state.lowerHue; i <= this.state.upperHue; i += step) {
+      hues.push(i)
     }
-    this.setState({pool})
+    this.setState({
+      hues,
+      pool: hues,
+    })
     setTimeout(() => this.nextHue(), 0)
   }
 
   nextHue() {
+    // Choose a hue that hasn't been displayed yet and display it
     if (this.state.pool.length) {
       var selected = Math.floor(Math.random() * this.state.pool.length)
-      this.setState({
-        hue: this.state.pool[selected],
-        pool: this.state.pool.filter((item, index) => index !== selected),
-      })
+      this.setState(state => ({
+        displayHue: state.pool[selected],
+        pool: state.pool.filter((item, index) => index !== selected),
+      }))
     } else {
-      this.setState({
-        hue: null,
-      })
+      this.setState({displayHue: null})
     }
   }
 
@@ -48,7 +51,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <HueSquare hue={this.state.hue} />
+          <HueSquare hue={this.state.displayHue} />
           {(this.state.pool.length &&
             <div>
               <h1>Is the box blue or purple?</h1>
