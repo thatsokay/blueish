@@ -32,6 +32,7 @@ class App extends Component {
     this.setState({
       hues,
       pool: hues,
+      choices: {},
     })
     setTimeout(() => this.nextHue(), 0)
   }
