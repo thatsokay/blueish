@@ -121,6 +121,25 @@ class App extends Component {
         >
           Start Again
         </button>
+        <p className="text">
+          Have you ever disagreed with someone when describing the colour of an
+          object?
+          <br />
+          People assign
+          {' '}
+          <a
+            className="App-link"
+            href="https://en.wikipedia.org/wiki/Color_term"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            colour terms
+          </a>
+          {' '}
+          based on their language, culture, and individual perception.
+          <br />
+          Where do you draw the line between these terms?
+        </p>
       </div>
     )
   }
