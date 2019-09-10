@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import './App.css'
-import '../../sass/main.sass'
 import HueSquare from '../../components/HueSquare'
 
 class App extends Component {
