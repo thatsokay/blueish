@@ -10,9 +10,9 @@ const step = (upperHue - lowerHue) / (numHues - 1)
 const hues = [...Array(numHues).keys()].map(i => lowerHue + step * i)
 
 const App = () => {
-  const [displayHue, setDisplayHue] = useState(null)
+  const [displayHue, setDisplayHue] = useState<number | null>(null)
   const [huePool, setHuePool] = useState(hues)
-  const [choices, setChoices] = useState({})
+  const [choices, setChoices] = useState<{[hue: number]: string}>({})
 
   const nextHue = () => {
     // Choose a hue that hasn't been displayed yet and display it
@@ -26,8 +26,8 @@ const App = () => {
     }
   }
 
-  const handleChoice = choice => () => {
-    setChoices({...choices, [displayHue]: choice})
+  const handleChoice = (choice: string) => () => {
+    setChoices({...choices, [displayHue!]: choice})
     nextHue()
   }
 
