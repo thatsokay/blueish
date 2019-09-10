@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 
 import HueSquare from './HueSquare'
 
@@ -7,9 +7,7 @@ const upperHue = 270
 const numHues = 5 // Number of hues to show including both bounds
 
 const step = (upperHue - lowerHue) / (numHues - 1)
-const hues = [...Array(numHues).keys()].map(
-  i => lowerHue + step * i
-)
+const hues = [...Array(numHues).keys()].map(i => lowerHue + step * i)
 
 const App = () => {
   const [displayHue, setDisplayHue] = useState(null)
@@ -29,7 +27,7 @@ const App = () => {
   }
 
   const handleChoice = choice => () => {
-    setChoices({ ...choices, [displayHue]: choice })
+    setChoices({...choices, [displayHue]: choice})
     nextHue()
   }
 
@@ -92,8 +90,7 @@ const App = () => {
         Have you ever disagreed with someone when describing the colour of an
         object?
         <br />
-        People assign
-        {' '}
+        People assign{' '}
         <a
           className="App-link"
           href="https://en.wikipedia.org/wiki/Color_term"
@@ -101,8 +98,7 @@ const App = () => {
           rel="noopener noreferrer"
         >
           colour terms
-        </a>
-        {' '}
+        </a>{' '}
         based on their language, culture, and individual perception.
         <br />
         Where do you draw the line between these terms?
@@ -113,10 +109,15 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header container">
-        {displayHue === null
-          ? (Object.keys(choices).length ? <Results /> : <Home />)
-          : <Question />
-        }
+        {displayHue === null ? (
+          Object.keys(choices).length ? (
+            <Results />
+          ) : (
+            <Home />
+          )
+        ) : (
+          <Question />
+        )}
       </header>
     </div>
   )
