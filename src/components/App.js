@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import './App.css'
-import HueSquare from '../../components/HueSquare'
+import HueSquare from './HueSquare'
 
 class App extends Component {
   constructor() {
